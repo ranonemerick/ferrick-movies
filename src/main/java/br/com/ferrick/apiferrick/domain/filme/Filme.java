@@ -1,7 +1,13 @@
 package br.com.ferrick.apiferrick.domain.filme;
 
+import jakarta.persistence.*;
+
+@Table(name = "filme")
+@Entity
 public class Filme {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private Integer duracao;
