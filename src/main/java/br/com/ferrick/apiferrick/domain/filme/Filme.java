@@ -1,9 +1,11 @@
 package br.com.ferrick.apiferrick.domain.filme;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
-@Table(name = "filme")
+@Table(name = "filmes")
 @Entity
+@NoArgsConstructor
 public class Filme {
 
     @Id
