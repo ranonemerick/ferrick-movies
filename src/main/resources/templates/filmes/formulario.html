@@ -1,34 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
 <head>
-    <meta charset="UTF-8">
     <title>Cadastro de Filme</title>
 </head>
 <body>
-<h1>Cadastro de filme</h1>
-<form method="post">
-    <label for="nome">Nome:</label>
-    <input id="nome" name="nome">
+<div layout:fragment="conteudo">
+    <h1>Cadastro de filme</h1>
+    <form method="post" action="/filmes">
+        <label for="nome">Nome:</label>
+        <input id="nome" name="nome">
 
-    <br/>
+        <br/>
 
-    <label for="duracao">Duração:</label>
-    <input id="duracao" name="duracao">
+        <label for="duracao">Duração:</label>
+        <input id="duracao" name="duracao">
 
-    <br/>
+        <br/>
 
-    <label for="lancamento">Lançamento:</label>
-    <input id="lancamento" name="lancamento">
+        <label for="lancamento">Lançamento:</label>
+        <input id="lancamento" name="lancamento">
 
-    <br/>
+        <br/>
 
 
-    <label for="genero">Gênero:</label>
-    <input id="genero" name="genero">
+        <label for="genero">Gênero:</label>
+        <input id="genero" name="genero">
 
-    <br/>
+        <br/>
 
-    <input type="submit" value="Cadastrar">
-</form>
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>
 </body>
 </html>
