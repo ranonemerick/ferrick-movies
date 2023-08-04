@@ -28,7 +28,8 @@
             <td th:text="${filme.lancamento}"></td>
             <td th:text="${filme.genero}"></td>
             <td>
-                <form>
+                <form action="/filmes" method="post">
+                    <input type="hidden" name="_method" value="delete">
                     <input type="submit" value="Excluir">
                 </form>
             </td>
