@@ -3,14 +3,12 @@ package br.com.ferrick.apiferrick.controller;
 import br.com.ferrick.apiferrick.domain.filme.DadosCadastroFilme;
 import br.com.ferrick.apiferrick.domain.filme.Filme;
 import br.com.ferrick.apiferrick.domain.filme.FilmeRepository;
+import br.com.ferrick.apiferrick.domain.filme.DadosAtualizacaoFilme;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -21,27 +19,40 @@ public class FilmesController {
     private FilmeRepository repository;
 
     @GetMapping("/formulario")
-    public String carregarFormulario() {
+    public String carregarFormulario(Long id, Model model) {
+        if(id != null){
+            var filme = repository.getReferenceById(id);
+            model.addAttribute("filme", filme);
+        }
         return "filmes/formulario";
     }
 
-    @GetMapping()
+    @GetMapping
     public String carregarLista(Model model) {
         model.addAttribute("lista", repository.findAll());
         return "filmes/listagem";
     }
 
     @PostMapping
-    public String cadastrarFilmes(DadosCadastroFilme dados) {
-        var filme = new Filme(dados);
-        repository.save(filme);
+    @Transactional
+    public String cadastrarFilmes(@ModelAttribute DadosCadastroFilme dados){
+           var filme = new Filme(dados);
+           repository.save(filme);
         return "redirect:/filmes";
     }
 
-    @DeleteMapping()
+    @DeleteMapping
+    @Transactional
     public String removerFilme(Long id) {
         repository.deleteById(id);
         return "redirect:/filmes";
     }
+    @PutMapping
+    @Transactional
+    public String atualizarFilme(DadosAtualizacaoFilme dados) {
+        var filme = repository.getReferenceById(dados.id());
+        filme.atualizaDados(dados);
 
+        return "redirect:/filmes";
+    }
 }
